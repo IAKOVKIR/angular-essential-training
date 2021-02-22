@@ -1,0 +1,20 @@
+<header
+    [ngClass]="{'type-books':type === 'Books', 'type-comics':type === 'Comics'}">
+    <h2>{{type}}</h2>
+    <mw-genre-list
+      *ngIf="bookItems"
+      [genres]="bookItems | genreList">
+    </mw-genre-list>
+</header>
+<section>
+  <mw-book-item
+    [ngClass]="{'type-books': bookItem.type==='Books', 'type-comics':bookItem.type==='Comics'}"
+    *ngFor="let bookItem of bookItems"
+    [bookItem]="bookItem"
+    (delete)="onBookItemDelete($event)"></mw-book-item>
+</section>
+<footer>
+  <a routerLink="/add">
+    <img src="assets/01.png" class="icon">
+  </a>
+</footer>

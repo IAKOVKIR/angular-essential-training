@@ -1,0 +1,46 @@
+<header>
+  <h2>Add Book to Read</h2>
+</header>
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit(form.value)">
+  <ul>
+    <li>
+      <label for="type">Type</label>
+      <select name="type" id="type" formControlName="type">
+        <option *ngFor="let type of lookupLists.types" value="{{type}}">{{type}}</option>
+      </select>
+    </li>
+    <li>
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" formControlName="name">
+      <div *ngIf="form.get('name').hasError('pattern')" class="error">
+        Name has invalid characters
+      </div>
+    </li>
+    <li>
+      <label for="author">Author</label>
+      <input type="text" name="author" id="author" formControlName="author">
+      <div *ngIf="form.get('author').hasError('pattern')" class="error">
+        Author's name has invalid characters
+      </div>
+    </li>
+    <li>
+      <label for="genre">Genre</label>
+      <select name="genre" id="genre" formControlName="genre">
+        <option *ngFor="let genre of lookupGenreLists.genres" value="{{genre}}">{{genre}}</option>
+      </select>
+    </li>
+    <li>
+      <label for="year">Year</label>
+      <input type="text" name="year" id="year" maxlength="4" formControlName="year">
+      <div *ngIf="form.get('year').errors as yearErrors" class="error">
+        Must be between
+        {{yearErrors.year.min}}
+        and
+        {{yearErrors.year.max}}
+      </div>
+    </li>
+  </ul>
+  <button type="submit" [disabled]="!form.valid">Save</button>
+</form>
